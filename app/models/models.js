@@ -73,10 +73,22 @@ User.getAll = (lastName, result) => {
 //   });
 // };
 
+const fields = ['firstName', 'lastName', 'phone', 'email', 'role'];
+
 User.updateById = (id, user, result) => {
+  const updateSQL = fields
+    .map((field) => 
+      typeof user[field] === 'undefined' 
+        ? undefined 
+          : `${field} = "${user[field]}"`
+    )
+    .filter(Boolean)
+    .join(',');
+    
   sql.query(
-    'UPDATE users SET firstName = ?, lastName = ?, phone = ?, email = ?, role = ? WHERE id = ?',
-    [user.firstName, user.lastName, user.phone, user.email, user.role, id],
+    `UPDATE users SET ${updateSQL} WHERE id = ?`,
+    // [user.firstName, user.lastName, user.phone, user.email, user.role, id],
+    [id],
     (err, res) => {
       if (err) {
         console.log('error: ', err);
@@ -90,8 +102,9 @@ User.updateById = (id, user, result) => {
         return;
       }
 
-      console.log('updated User: ', { id: id, ...user });
-      result(null, { id: id, ...user });
+      // console.log('updated User: ', { id: id, ...user });
+      // result(null, { id: id, ...user });
+      return User.findById(id, result);
     }
   );
 };

@@ -100,8 +100,10 @@ npm start
 |HTTP Method|URL|Description|
 |---|---|---|
 |`POST`|curl -X POST -H "Content-Type:application/json" http://localhost:9000/users -d '{"firstName": "David", "lastName": "Jones", "phone": "+15101234567", "email": "test@test.com", "role": "admin"}' | Create new User |
-|`PUT`|curl -X PUT -H "Content-Type:application/json" http://localhost:9000/users/1 -d '{ "firstName": "Tom"}' | Update and existing User by ID |
 |`GET`|curl -X GET -H "Content-Type:application/json" http://localhost:9000/users | Get All Users |
-|`DELETE`|curl -X DELETE -H "Content-Type:application/json" http://localhost:9000/users/:id | Delete User by ID |
 |`GET`|curl -X GET -H "Content-Type:application/json" http://localhost:9000/users/:id | Get a User by id |
+|`PUT`|curl -X PUT -H "Content-Type:application/json" http://localhost:9000/users/1 -d '{ "firstName": "Tom"}' | Update an existing User by ID |
+|`DELETE`|curl -X DELETE -H "Content-Type:application/json" http://localhost:9000/users/:id | Delete User by ID |
+|`DELETE`|curl -X DELETE -H "Content-Type:application/json" http://localhost:9000/users/ | Delete All Users |
+
 
