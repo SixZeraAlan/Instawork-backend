@@ -18,31 +18,25 @@ role (this is either "admin" or "regular")
 
 ### Adding a team member
 
-```
 This endpoint should accept a JSON object in the body of the request. The JSON object should include the same properties as above (first/last name, phone, email, role) except for the unique id. The API response should return a JSON object with the properties, including a unique id for the team member.
-```
+
 
 ### Editing a team member
 
-```
 This endpoint should accept a JSON object in the body of the request. The JSON object can include any of the properties above (first/last name, phone, email, role). The API response should return all of the (updated) properties of the team member.
 
 
 Note: Not all properties need to be provided in the request. Properties that are not included should not be updated.
-```
+
 ### Deleting a team member
 
-```
 This endpoint should take a unique id for the team member and return an empty response.
-```
 
 
 ## Prerequisites
 
 This project requires NodeJS (version 16 or later) and NPM.
 [Node](http://nodejs.org/) and [NPM](https://npmjs.org/) are really easy to install. You also need the MySQL database installed on your local machine.
-To make sure you have them available on your machine,
-try running the following command.
 
 ## Getting Started
 
@@ -50,32 +44,35 @@ These instructions will get you a copy of the project up and running on your loc
 
 ###  Schema used for MySQL database
 
-[{
-  - `'id'`: int, PK, NN, 
-  - `'firstName'`: varchar(255), 
-  - `'lastName'`: varchar(255), 
-  - `'phone'`: varchar(255), 
-  - `'email'`: varchar(255), 
-  - `'role'`: ENUM('admin','regular')
-}]
+{
+  `'id'`: int, PK, NN, 
+  `'firstName'`: varchar(255), 
+  `'lastName'`: varchar(255), 
+  `'phone'`: varchar(255), 
+  `'email'`: varchar(255), 
+  `'role'`: ENUM('admin','regular')  
+}
 
-- Create a new databse named 'my_db' on your local MySQL database
+- Create a new database named 'my_db' on your local MySQL database
 - Then, use the following db script to create a table 'users'
 ```
-'CREATE TABLE IF NOT EXISTS users (
+CREATE TABLE IF NOT EXISTS users (
     id int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
     firstName varchar(255),
     lastName varchar(255),
     phone varchar(255),
     email varchar(255),
-    role ENUM('admin', 'regular'));'
+    role ENUM('admin', 'regular'));
 ```
-- Specify your own database info inside the file './app/models/db.js'
+- Specify your own database config inside the file './app/models/db.js'  
 e.g.,
 ```
-	host: "localhost",
-	user: "root",
-	password: 'password',
+	let db_con = mysql.createConnection({
+	  host: "localhost",  
+    user: "root",  
+    password: 'password',  
+    database: 'my_db'  
+});
 ```
 ###  How to set up and run
 
@@ -97,7 +94,9 @@ npm start
 
 ### How to test the project
 
-|HTTP Method|URL|Description|
+- Run the following command inside your terminal
+
+|HTTP Method|curl Command|Description|
 |---|---|---|
 |`POST`|curl -X POST -H "Content-Type:application/json" http://localhost:9000/users -d '{"firstName": "David", "lastName": "Jones", "phone": "+15101234567", "email": "test@test.com", "role": "admin"}' | Create new User |
 |`GET`|curl -X GET -H "Content-Type:application/json" http://localhost:9000/users | Get All Users |
